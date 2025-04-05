@@ -21,9 +21,9 @@ jobs:
       - run: sf --version
       - name: 'Authenticate to Agentforce org'
         run: |
-            echo ${{ secrets.UNSTRUCTUREDDATAAI }} > ./UNSTRUCTUREDDATAAI.txt
-            ls -al ./UNSTRUCTUREDDATAAI.txt
-            sf org login sfdx-url -f ./UNSTRUCTUREDDATAAI.txt -a UnstructuredDataAI -d
+            echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
+            ls -al ./AGENTFORCE_DEV_ORG_URL.txt
+            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a UnstructuredDataAI -d
 
       - name: 'Query data'
         run: |
