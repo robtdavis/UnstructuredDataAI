@@ -8,7 +8,7 @@ on:
 jobs:
   dev-org-renew:
     runs-on: ubuntu-latest
-    environment: AFDevOrgRenew
+    environment: UnstructuredDataAI
     steps:
       - uses: actions/checkout@v4
         with: 
