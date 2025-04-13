@@ -19,12 +19,16 @@ jobs:
       - name: 'Install CLI'
         run: npm install @salesforce/cli --location=global
       - run: sf --version
-      - name: 'Authenticate to Agentforce org'
+      
+      - name: 'Authenticate to Salesforce org'
         run: |
-          echo "${{ secrets.AGENTFORCE_DEV_ORG_URL }}" > ./AGENTFORCE_DEV_ORG_URL.txt
-          cat ./AGENTFORCE_DEV_ORG_URL.txt | grep -v 'force://'  # Debug without exposing full URL
-          sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a SFDevOrg2_AgentForce -d
+          sf org login username \
+            --username ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }} \
+            --password ${{ secrets.SFDEVORG2_AGENTFORCE_PASSWORD }} \
+            --instance-url ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
+            --alias SFDevOrg2_AgentForce \
+            --set-default-dev-hub
 
-      - name: 'Query data'
+      - name: 'Query data to verify connection'
         run: |
-            sf data query --query "select name from organization" -o UnstructuredDataAI
+            sf data query --query "select name from organization" --target-org SFDevOrg2_AgentForce
