@@ -20,13 +20,28 @@ jobs:
         run: npm install sfdx-cli --global
       - run: sfdx --version
       
+      - name: 'Debug secrets'
+        run: |
+          echo "Username exists: ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME != '' }}"
+          echo "ClientID exists: ${{ secrets.SFDEVORG2_AGENTFORCE_CLIENTID != '' }}"
+          echo "Instance URL exists: ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL != '' }}"
+      
       - name: 'Authenticate to Salesforce org'
         run: |
+          # Set explicit variables first
+          USERNAME="${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }}"
+          CLIENTID="${{ secrets.SFDEVORG2_AGENTFORCE_CLIENTID }}"
+          INSTANCEURL="${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }}"
+          
+          # Check if username is set properly
+          echo "Using username: $USERNAME"
+          
+          # Run the command with explicit variables
           sfdx force:auth:jwt:grant \
-            --clientid ${{ secrets.SFDEVORG2_AGENTFORCE_CLIENTID }} \
+            --clientid "$CLIENTID" \
             --jwtkeyfile server.key \
-            --username ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }} \
-            --instanceurl ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
+            --username "$USERNAME" \
+            --instanceurl "$INSTANCEURL" \
             --setalias SFDevOrg2_AgentForce \
             --setdefaultdevhubusername
 
