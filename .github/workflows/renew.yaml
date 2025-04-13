@@ -8,7 +8,7 @@ on:
 jobs:
   dev-org-renew:
     runs-on: ubuntu-latest
-    environment: UnstructuredDataAI
+    environment: SFDevOrg2_AgentForce
     steps:
       - uses: actions/checkout@v4
         with: 
@@ -23,7 +23,7 @@ jobs:
         run: |
             echo ${{ secrets.AGENTFORCE_DEV_ORG_URL }} > ./AGENTFORCE_DEV_ORG_URL.txt
             ls -al ./AGENTFORCE_DEV_ORG_URL.txt
-            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a UnstructuredDataAI -d
+            sf org login sfdx-url -f ./AGENTFORCE_DEV_ORG_URL.txt -a SFDevOrg2_AgentForce -d
 
       - name: 'Query data'
         run: |
