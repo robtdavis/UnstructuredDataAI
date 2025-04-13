@@ -17,18 +17,18 @@ jobs:
         with:
           node-version: '20'
       - name: 'Install CLI'
-        run: npm install @salesforce/cli --location=global
-      - run: sf --version
+        run: npm install sfdx-cli --global
+      - run: sfdx --version
       
       - name: 'Authenticate to Salesforce org'
         run: |
-          sfdx auth:device:login \
+          sfdx auth:username:login \
             --username ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }} \
             --password ${{ secrets.SFDEVORG2_AGENTFORCE_PASSWORD }} \
-            --instance-url ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
-            --alias SFDevOrg2_AgentForce \
-            --set-default-dev-hub
+            --instanceurl ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
+            --setalias SFDevOrg2_AgentForce \
+            --setdefaultdevhubusername
 
       - name: 'Query data to verify connection'
         run: |
-            sf data query --query "select name from organization" --target-org SFDevOrg2_AgentForce
+            sfdx force:data:soql:query --query "select name from organization" --targetusername SFDevOrg2_AgentForce
