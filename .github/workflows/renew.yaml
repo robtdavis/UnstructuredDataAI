@@ -22,7 +22,7 @@ jobs:
       
       - name: 'Authenticate to Salesforce org'
         run: |
-          sfdx auth:username:login \
+          sfdx auth:device:login \
             --username ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }} \
             --password ${{ secrets.SFDEVORG2_AGENTFORCE_PASSWORD }} \
             --instance-url ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
