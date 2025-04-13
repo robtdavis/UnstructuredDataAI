@@ -22,9 +22,10 @@ jobs:
       
       - name: 'Authenticate to Salesforce org'
         run: |
-          sfdx auth:username:login \
+          sfdx force:auth:jwt:grant \
+            --clientid ${{ secrets.SFDEVORG2_AGENTFORCE_CLIENTID }} \
+            --jwtkeyfile server.key \
             --username ${{ secrets.SFDEVORG2_AGENTFORCE_USERNAME }} \
-            --password ${{ secrets.SFDEVORG2_AGENTFORCE_PASSWORD }} \
             --instanceurl ${{ secrets.SFDEVORG2_AGENTFORCE_SF_INSTANCE_URL }} \
             --setalias SFDevOrg2_AgentForce \
             --setdefaultdevhubusername
